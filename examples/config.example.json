@@ -2,5 +2,9 @@
  "api_key": "",
  "languages": ["CZ", "SK"],
  "request_delay": 2.0,
- "rows_ttl_h": 24
+ "rows_ttl_h": 24,
+ "bazarr": {
+  "url": "http://localhost:6767",
+  "apikey": ""
+ }
 }

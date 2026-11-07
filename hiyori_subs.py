@@ -518,7 +518,23 @@ class App:
         finally:
             jsave(self.args.state, self.state)
         self.report()
+        if self.stats["staženo"] + self.stats["nahrazeno"] and not self.args.dry_run:
+            self.bazarr_scan()
         return 0
+
+    def bazarr_scan(self):
+        """Řekne Bazarru, ať znovu načte titulky z disku (jinak by je viděl až při noční indexaci)."""
+        b = self.cfg.get("bazarr") or {}
+        if not (b.get("url") and b.get("apikey")):
+            return
+        for task in b.get("tasks") or ("series_full_scan_subtitles", "movies_full_scan_subtitles"):
+            try:
+                r = requests.post(b["url"].rstrip("/") + "/api/system/tasks", data={"taskid": task},
+                                  headers={"X-API-KEY": b["apikey"], "User-Agent": UA}, timeout=30)
+                r.raise_for_status()
+                log.info("Bazarr: spuštěno %s", task)
+            except requests.RequestException as e:
+                log.warning("Bazarr: %s selhalo: %s", task, e)
 
     def report(self):
         for ser, cand in self.unmatched.values():
