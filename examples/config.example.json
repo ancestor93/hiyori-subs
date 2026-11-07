@@ -1,0 +1,6 @@
+{
+ "api_key": "",
+ "languages": ["CZ", "SK"],
+ "request_delay": 2.0,
+ "rows_ttl_h": 24
+}

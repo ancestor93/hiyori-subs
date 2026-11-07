@@ -1,0 +1,11 @@
+[Unit]
+Description=Spouštět hiyori-subs každých 6 hodin
+
+[Timer]
+OnBootSec=15min
+OnCalendar=*-*-* 00/6:23
+RandomizedDelaySec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=CZ/SK titulky k anime z Hiyori
+
+[Service]
+Type=oneshot
+# uprav cestu ke skriptu a ke knihovne anime
+ExecStart=/usr/bin/python3 %h/hiyori-subs/hiyori_subs.py -q %h/Videa/Anime
+Nice=10
